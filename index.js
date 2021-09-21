@@ -1,8 +1,8 @@
-//ee0125/index.js
 const express = require('express')
 const app = express()
 const path = require('path')
 const mongoose = require('./backend/routes/Schemas/db')
+const helmet = require('helmet')
 
 mongoose.connection.on('open', () => {
   console.log('DB on')
@@ -12,6 +12,8 @@ mongoose.connection.on('open', () => {
   //post, get時的解碼
   app.use(express.urlencoded({ extended: true }))
   app.use(express.json())
+  //basic security settings
+  app.use(helmet())
 
   //session 設定
   //參考網站https://www.cnblogs.com/chyingp/p/nodejs-learning-express-session.html
@@ -25,6 +27,8 @@ mongoose.connection.on('open', () => {
       saveUninitialized: false, // 是否自动保存未初始化的會話，建議false
       resave: false, // 是否每次都重新保存會話，建議false
       cookie: {
+        secure: process.env.NODE_ENV === 'production', //only allow https request
+        domain: process.env.domain, //default undefined
         httpOnly: true, //false前端可read和set
         maxAge: 60 * 60 * 1000, // 有效期(ms)
       },

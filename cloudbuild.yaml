@@ -2,15 +2,15 @@ steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
-    args: ['-c', 'docker pull gcr.io/$PROJECT_ID/eeplus || true']
+    args: ['-c', 'docker pull gcr.io/$PROJECT_ID/eeplus_v2 || true']
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'build'
       - '--cache-from'
-      - 'gcr.io/$PROJECT_ID/eeplus'
+      - 'gcr.io/$PROJECT_ID/eeplus_v2'
       - '-t'
-      - 'gcr.io/$PROJECT_ID/eeplus'
+      - 'gcr.io/$PROJECT_ID/eeplus_v2'
       - '--build-arg'
       - 'MONGO_URI=${_MONGO_URI}'
       - '--build-arg'
@@ -18,18 +18,18 @@ steps:
       - '.'
   # Push the container image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/eeplus']
+    args: ['push', 'gcr.io/$PROJECT_ID/eeplus_v2']
   # Deploy container image to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
       - 'run'
       - 'deploy'
-      - 'eeplus'
+      - 'eeplus_v2'
       - '--image'
-      - 'gcr.io/$PROJECT_ID/eeplus'
+      - 'gcr.io/$PROJECT_ID/eeplus_v2'
       - '--region'
       - 'asia-east1'
 images:
-  - 'gcr.io/$PROJECT_ID/eeplus'
+  - 'gcr.io/$PROJECT_ID/eeplus_v2'
 timeout: 1200s
