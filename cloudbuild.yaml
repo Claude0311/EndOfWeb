@@ -25,7 +25,7 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'eeplus_v2'
+      - 'eeplus-v2'
       - '--image'
       - 'gcr.io/$PROJECT_ID/eeplus_v2'
       - '--region'
