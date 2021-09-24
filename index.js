@@ -13,7 +13,7 @@ mongoose.connection.on('open', () => {
   app.use(express.urlencoded({ extended: true }))
   app.use(express.json())
   //basic security settings
-  app.use(helmet())
+  // app.use(helmet())
 
   //session 設定
   //參考網站https://www.cnblogs.com/chyingp/p/nodejs-learning-express-session.html
