@@ -27,8 +27,8 @@ mongoose.connection.on('open', () => {
       saveUninitialized: false, // 是否自动保存未初始化的會話，建議false
       resave: false, // 是否每次都重新保存會話，建議false
       cookie: {
-        secure: process.env.NODE_ENV === 'production', //only allow https request
-        domain: process.env.domain, //default undefined
+        // secure: process.env.NODE_ENV === 'production', //only allow https request
+        // domain: process.env.domain, //default undefined
         httpOnly: true, //false前端可read和set
         maxAge: 60 * 60 * 1000, // 有效期(ms)
       },
